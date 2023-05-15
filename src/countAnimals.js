@@ -9,9 +9,9 @@ const countAnimals = (animal) => {
     });
 
     return todosAnimais;
-  } else {
-    
   }
 };
-console.log(countAnimals());
+//   else {
+//   }
+// };
 module.exports = countAnimals;

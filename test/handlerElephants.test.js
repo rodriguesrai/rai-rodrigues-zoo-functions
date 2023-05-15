@@ -13,4 +13,10 @@ describe('Testes da função HandlerElephants', () => {
   test('Verifica se count retorna o valor 4', () => {
     expect(handlerElephants('count')).toBe(4);
   });
+  test('Verifica se name retorna um array com names', () => {
+    expect(handlerElephants('names')).toEqual(['Ilana', 'Orval', 'Bea', 'Jefferson']);
+  });
+  test('Verifica se name retorna um array com names', () => {
+    expect(handlerElephants('averageAge')).toBeCloseTo(10.5);
+  });
 });
