@@ -22,9 +22,5 @@ const countAnimals = (animal) => {
     : searchSpecies.residents.length;
   return quantidadeAnimais;
 };
-console.log(countAnimals());
-console.log(countAnimals({ species: 'giraffes', sex: 'female' }));
-//   else {
-//   }
-// };
+
 module.exports = countAnimals;
