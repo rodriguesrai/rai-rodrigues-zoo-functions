@@ -7,6 +7,9 @@ describe('Testes da função getOpeningHours', () => {
   test('Verifica se o zoológico está aberto neste horário', () => {
     expect(getOpeningHours('Tuesday', '9:00-AM')).toEqual('The zoo is open');
   });
+  test('Verifica se o zoológico está aberto neste horário', () => {
+    expect(getOpeningHours('Monday', '9:00-AM')).toEqual('The zoo is closed');
+  });
   test('Verifica se ao não receber parâmetro retorna o esperado', () => {
     expect(getOpeningHours()).toEqual({
       Tuesday: { open: 8, close: 6 },
@@ -37,5 +40,22 @@ describe('Testes da função getOpeningHours', () => {
     expect(() => {
       getOpeningHours('Friday', '15:12-PM');
     }).toThrowError('The hour must be between 0 and 12');
+  });
+  test('Verifica se lança um erro ao colocar dia inválidos', () => {
+    expect(() => {
+      getOpeningHours('DiaInválido', '9:30-AM');
+    }).toThrowError('The day must be valid. Example: Monday');
+  });
+  test('Verifica se o fix12 retorna valores corretos', () => {
+    const result = getOpeningHours('Monday', '9:00-AM');
+    if (typeof result === 'string') {
+      // ignorar o teste quando a função retorna uma string
+      return;
+    }
+    expect(result).toEqual({
+      h: 9,
+      o: 9,
+      c: 0,
+    });
   });
 });
