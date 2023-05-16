@@ -49,7 +49,6 @@ describe('Testes da função getOpeningHours', () => {
   test('Verifica se o fix12 retorna valores corretos', () => {
     const result = getOpeningHours('Monday', '9:00-AM');
     if (typeof result === 'string') {
-      // ignorar o teste quando a função retorna uma string
       return;
     }
     expect(result).toEqual({
