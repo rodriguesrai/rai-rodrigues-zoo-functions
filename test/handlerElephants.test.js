@@ -16,7 +16,10 @@ describe('Testes da função HandlerElephants', () => {
   test('Verifica se name retorna um array com names', () => {
     expect(handlerElephants('names')).toEqual(['Ilana', 'Orval', 'Bea', 'Jefferson']);
   });
-  test('Verifica se name retorna um array com names', () => {
+  test('Verifica se name retorna a média de idade dos elefantes', () => {
     expect(handlerElephants('averageAge')).toBeCloseTo(10.5);
+  });
+  test('Verifica se retorna null para parâmetro inválido', () => {
+    expect(handlerElephants('parametroInválido')).toBeNull();
   });
 });
