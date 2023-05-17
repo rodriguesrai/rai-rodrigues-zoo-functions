@@ -5,35 +5,70 @@ const getFullName = (employee) => `${employee.firstName} ${employee.lastName}`;
 const getSpeciesNames = (responsibleFor) => responsibleFor.map((speciesId) =>
   species.find((s) => s.id === speciesId).name);
 
-const getSpeciesLocations = (speciesNames) => speciesNames.map((speciesName) =>
-  species.find((s) => s.name === speciesName).locations);
+const getSpeciesLocations = (speciesNames, speciesData) => speciesNames.map((speciesName) =>
+  species.find((s) => s.name === speciesName).location);
 
-const semParam = () => {
-  const employeesInfo = [];
-  employees.forEach((employee) => {
+const getEmployeeByName = (name) => {
+  const employee = employees.find((e) => e.firstName === name || e.lastName === name);
+  if (!employee) {
+    throw new Error('Informações inválidas');
+  }
+  const { id, responsibleFor } = employee;
+  const fullName = getFullName(employee);
+  const speciesNames = getSpeciesNames(responsibleFor);
+  const speciesLocations = getSpeciesLocations(speciesNames);
+  return {
+    id,
+    fullName,
+    species: speciesNames,
+    locations: speciesLocations,
+  };
+};
+
+const getEmployeeById = (id) => {
+  const employee = employees.find((e) => e.id === id);
+  if (!employee) {
+    throw new Error('Informações inválidas');
+  }
+  const { responsibleFor } = employee;
+  const fullName = getFullName(employee);
+  const speciesNames = getSpeciesNames(responsibleFor);
+  const speciesLocations = getSpeciesLocations(speciesNames);
+  return {
+    id,
+    fullName,
+    species: speciesNames,
+    locations: speciesLocations,
+  };
+};
+
+const getAllEmployees = () => {
+  const employeesInfo = employees.map((employee) => {
     const { id, responsibleFor } = employee;
     const fullName = getFullName(employee);
     const speciesNames = getSpeciesNames(responsibleFor);
     const speciesLocations = getSpeciesLocations(speciesNames);
-    employeesInfo.push({
+    return {
       id,
       fullName,
-      speciesNames,
-      speciesLocations,
-    });
+      species: speciesNames,
+      locations: speciesLocations,
+    };
   });
 
   return employeesInfo;
 };
 
 const getEmployeesCoverage = ({ name, id } = {}) => {
-  if (name === undefined && id === undefined) {
-    return semParam();
+  if (name) {
+    return getEmployeeByName(name);
   }
 
-  // const mudarAinda = retornaInfoName(name);
-  // // Alterar essa variável
+  if (id) {
+    return getEmployeeById(id);
+  }
+
+  return getAllEmployees();
 };
-console.log(getEmployeesCoverage());
 
 module.exports = getEmployeesCoverage;
